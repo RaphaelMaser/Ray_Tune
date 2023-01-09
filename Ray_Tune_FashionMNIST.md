@@ -1,6 +1,6 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/RaphaelMaser/Ray_Tune/blob/main/Ray_Tune_FashionMNIST.ipynb)
+This notebook can be found on https://github.com/RaphaelMaser/Ray_Tune or opened in colab with the button below
 
-## Ray
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/RaphaelMaser/Ray_Tune/blob/main/Ray_Tune_FashionMNIST.ipynb)
 
 <img src="./images/ray_header_logo.png" 
      align="middle" 
@@ -8,6 +8,8 @@
      title="Ray Logo (https://docs.ray.io/en/latest/index.html)"/>
 
 *Ray Logo (https://docs.ray.io/en/latest/index.html)*
+
+## Ray
 
 Ray is a framework for distributed computing in Python. The core idea of Ray is to make distributed computing as accessible as possible while not disturbing the workflow of the user. For that purpose it integrates well with all of the mainstream Python libraries used in distributed scenarios like PyTorch, Tensorflow, Scikit-learn, etc.. Integrating Ray in your own workflow typically only needs small changes in your code, there is no need to re-write your application.
 
@@ -25,7 +27,7 @@ Ray Core is a low-level library and although it is well made it needs some knowl
 
 With Ray Tune only a few lines of code needs to be added to the training procedure to run a full HPO with state-of-the-art search algorithms and schedulers.
 
-### Why should I use Ray Tune and not any other HPO library?
+### Why should I use Ray Tune and not one of the other HPO libraries?
 
 <img src="./images/tune_overview.webp" 
      align="center" 
@@ -91,6 +93,54 @@ train_data, val_data = random_split(data, [0.8,0.2])
 train_dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
 val_dataloader = DataLoader(val_data, batch_size=batch_size)
 ```
+
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
+
+
+    0.9%
+
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+
+
+    100.0%
+
+
+    Extracting data/FashionMNIST/raw/train-images-idx3-ubyte.gz to data/FashionMNIST/raw
+
+
+    100.0%
+
+    
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+    Extracting data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+
+
+    
+    3.0%
+
+    
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+
+
+    100.0%
+
+
+    Extracting data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw
+    
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+    Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+
+
+    100.0%
+
+    Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+    
+
+
+    
+
 
 The model used for the demonstration is a very simple fully connected network with 3 layers.
 
@@ -180,56 +230,54 @@ train(10)
     Epoch 1
     -------------------------------
     Test Error: 
-     Accuracy: 16.2%, Avg loss: 2.290474 
+     Accuracy: 17.9%, Avg loss: 2.278881 
     
     Epoch 2
     -------------------------------
     Test Error: 
-     Accuracy: 21.9%, Avg loss: 2.278679 
+     Accuracy: 21.1%, Avg loss: 2.266609 
     
     Epoch 3
     -------------------------------
     Test Error: 
-     Accuracy: 27.2%, Avg loss: 2.267174 
+     Accuracy: 25.1%, Avg loss: 2.254291 
     
     Epoch 4
     -------------------------------
     Test Error: 
-     Accuracy: 31.9%, Avg loss: 2.255836 
+     Accuracy: 28.4%, Avg loss: 2.241845 
     
     Epoch 5
     -------------------------------
     Test Error: 
-     Accuracy: 35.0%, Avg loss: 2.244509 
+     Accuracy: 30.7%, Avg loss: 2.229174 
     
     Epoch 6
     -------------------------------
     Test Error: 
-     Accuracy: 37.1%, Avg loss: 2.233042 
+     Accuracy: 32.6%, Avg loss: 2.216170 
     
     Epoch 7
     -------------------------------
     Test Error: 
-     Accuracy: 38.4%, Avg loss: 2.221304 
+     Accuracy: 33.7%, Avg loss: 2.202708 
     
     Epoch 8
     -------------------------------
     Test Error: 
-     Accuracy: 39.7%, Avg loss: 2.209186 
+     Accuracy: 35.1%, Avg loss: 2.188691 
     
     Epoch 9
     -------------------------------
     Test Error: 
-     Accuracy: 40.8%, Avg loss: 2.196593 
+     Accuracy: 36.5%, Avg loss: 2.174028 
     
     Epoch 10
     -------------------------------
     Test Error: 
-     Accuracy: 42.1%, Avg loss: 2.183453 
+     Accuracy: 37.7%, Avg loss: 2.158642 
     
 
-
-The final accuracy of the model after 10 epochs is ~42 %.
 
 ## Hyperparameter optimization (Random Search)
 
@@ -242,7 +290,7 @@ The following line is not mandatory, normally Ray initializes itself if it was n
 ray.init(log_to_driver=False, ignore_reinit_error=True)
 ```
 
-    2023-01-07 17:48:50,030	INFO worker.py:1538 -- Started a local Ray instance.
+    2023-01-09 15:40:44,466	INFO worker.py:1370 -- Calling ray.init() again after it has already been called.
 
 
 
@@ -308,7 +356,7 @@ def train_tune(config):
         print(f"Epoch {t+1}\n-------------------------------")
         train_epoch(train_dataloader, model, loss_fn, optimizer, device)
         accuracy = test(val_dataloader, model, loss_fn, device)
-        session.report(metrics={"mean_accuracy": accuracy})
+        session.report(metrics={"mean_accuracy": accuracy, "epoch": t + 1})
 ```
 
 Now that we have a compatible function for training We are almost ready to create a tuner. A tuner is used in Ray to construct and execute an HPO search. 
@@ -350,81 +398,22 @@ results = tuner.fit()
 ```
 
 
-```python
-print(results.get_best_result())
-
-ax = None
-dfs = {result.log_dir: result.metrics_dataframe for result in results}
-for d in dfs.values():
-    ax = d.mean_accuracy.plot(ax=ax, legend=False)
-ax.set_xlabel("Epochs")
-ax.set_ylabel("Mean accuracy")
-```
-
-    Result(metrics={'mean_accuracy': 87.51666666666667, 'done': True, 'trial_id': '0ff61_00002', 'experiment_tag': '2_lr=0.0509,weight_decay=0.0001'}, error=None, log_dir=PosixPath('/home/raffi/ray_results/train_tune_2023-01-07_17-05-09/train_tune_0ff61_00002_2_lr=0.0509,weight_decay=0.0001_2023-01-07_17-05-19'))
-
-
-
-
-
-    Text(0, 0.5, 'Mean accuracy')
-
-
-
-
-    
-![png](Ray_Tune_FashionMNIST_files/Ray_Tune_FashionMNIST_29_2.png)
-    
-
-
-## Hyperparameter optimization (ASAH Scheduler)
-
-Now we are going to make the example slightly harder by integrating the ASAH scheduler. This scheduler will try to stop non-promising trials in order to save ressources. This allows us to choose a higher number of samples without increasing the training time. 
-
-We can reuse the train_tune() function and the config from before. Afterwards we need to define the scheduler with the correct arguments. 
-
-Now we only need to add the scheduler to the TuneConfig and afterwards we can start the HPO.
-
-**HINT**: The ASAH scheduler can also take "metric" and "mode" as input. If you already defined this in the TuneConfig do **NOT** redefine it.
-
-
-```python
-scheduler = ASHAScheduler(
-    max_t=config["epochs"], # Max time per trial
-    time_attr="training_iteration", # Which metric is used as measurement for "time"
-    )
-
-tuner = tune.Tuner(
-    trainable,
-    param_space = config,
-    tune_config = tune.TuneConfig(
-        metric = "mean_accuracy",
-        mode = "max",
-        num_samples = 16,
-        scheduler=scheduler,
-    )
-)
-
-results = tuner.fit()
-```
-
-
 <div class="tuneStatus">
   <div style="display: flex;flex-direction: row">
     <div style="display: flex;flex-direction: column;">
       <h3>Tune Status</h3>
       <table>
 <tbody>
-<tr><td>Current time:</td><td>2023-01-07 17:27:06</td></tr>
-<tr><td>Running for: </td><td>00:03:11.40        </td></tr>
-<tr><td>Memory:      </td><td>15.8/30.6 GiB      </td></tr>
+<tr><td>Current time:</td><td>2023-01-09 15:44:46</td></tr>
+<tr><td>Running for: </td><td>00:04:01.50        </td></tr>
+<tr><td>Memory:      </td><td>12.7/30.6 GiB      </td></tr>
 </tbody>
 </table>
     </div>
     <div class="vDivider"></div>
     <div class="systemInfo">
       <h3>System Info</h3>
-      Using AsyncHyperBand: num_stopped=16<br>Bracket: Iter 4.000: 85.53125 | Iter 1.000: 81.05833333333334<br>Resources requested: 0/16 CPUs, 0/0 GPUs, 0.0/10.47 GiB heap, 0.0/5.24 GiB objects
+      Using FIFO scheduling algorithm.<br>Resources requested: 0/16 CPUs, 0/0 GPUs, 0.0/10.29 GiB heap, 0.0/5.14 GiB objects
     </div>
 
   </div>
@@ -433,25 +422,17 @@ results = tuner.fit()
     <h3>Trial Status</h3>
     <table>
 <thead>
-<tr><th>Trial name            </th><th>status    </th><th>loc                  </th><th style="text-align: right;">       lr</th><th style="text-align: right;">  weight_decay</th><th style="text-align: right;">    acc</th><th style="text-align: right;">  iter</th><th style="text-align: right;">  total time (s)</th></tr>
+<tr><th>Trial name            </th><th>status    </th><th>loc                  </th><th style="text-align: right;">        lr</th><th style="text-align: right;">  weight_decay</th><th style="text-align: right;">    acc</th><th style="text-align: right;">  iter</th><th style="text-align: right;">  total time (s)</th><th style="text-align: right;">  epoch</th></tr>
 </thead>
 <tbody>
-<tr><td>train_tune_adf3c_00000</td><td>TERMINATED</td><td>192.168.188.20:788216</td><td style="text-align: right;">0.0644557</td><td style="text-align: right;">   0.0040345  </td><td style="text-align: right;">86.5917</td><td style="text-align: right;">    10</td><td style="text-align: right;">        161.764 </td></tr>
-<tr><td>train_tune_adf3c_00001</td><td>TERMINATED</td><td>192.168.188.20:788291</td><td style="text-align: right;">0.075588 </td><td style="text-align: right;">   0.00356234 </td><td style="text-align: right;">81.0417</td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.3533</td></tr>
-<tr><td>train_tune_adf3c_00002</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0550501</td><td style="text-align: right;">   0.00700203 </td><td style="text-align: right;">80.5583</td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.2717</td></tr>
-<tr><td>train_tune_adf3c_00003</td><td>TERMINATED</td><td>192.168.188.20:788340</td><td style="text-align: right;">0.0238723</td><td style="text-align: right;">   0.00376137 </td><td style="text-align: right;">77.1167</td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.3274</td></tr>
-<tr><td>train_tune_adf3c_00004</td><td>TERMINATED</td><td>192.168.188.20:788291</td><td style="text-align: right;">0.0864238</td><td style="text-align: right;">   0.00132724 </td><td style="text-align: right;">79.725 </td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.1607</td></tr>
-<tr><td>train_tune_adf3c_00005</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0152888</td><td style="text-align: right;">   0.00534216 </td><td style="text-align: right;">72.125 </td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.1705</td></tr>
-<tr><td>train_tune_adf3c_00006</td><td>TERMINATED</td><td>192.168.188.20:788340</td><td style="text-align: right;">0.0884417</td><td style="text-align: right;">   0.000112171</td><td style="text-align: right;">88.025 </td><td style="text-align: right;">    10</td><td style="text-align: right;">        158.676 </td></tr>
-<tr><td>train_tune_adf3c_00007</td><td>TERMINATED</td><td>192.168.188.20:788291</td><td style="text-align: right;">0.0391692</td><td style="text-align: right;">   0.00133369 </td><td style="text-align: right;">84.3333</td><td style="text-align: right;">     4</td><td style="text-align: right;">         64.9613</td></tr>
-<tr><td>train_tune_adf3c_00008</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0403739</td><td style="text-align: right;">   0.00694623 </td><td style="text-align: right;">80.8083</td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.1696</td></tr>
-<tr><td>train_tune_adf3c_00009</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0850602</td><td style="text-align: right;">   0.00863932 </td><td style="text-align: right;">80.6417</td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.3448</td></tr>
-<tr><td>train_tune_adf3c_00010</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0353943</td><td style="text-align: right;">   0.00581399 </td><td style="text-align: right;">79.075 </td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.1625</td></tr>
-<tr><td>train_tune_adf3c_00011</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0796056</td><td style="text-align: right;">   0.00203633 </td><td style="text-align: right;">85.1583</td><td style="text-align: right;">     4</td><td style="text-align: right;">         65.412 </td></tr>
-<tr><td>train_tune_adf3c_00012</td><td>TERMINATED</td><td>192.168.188.20:788291</td><td style="text-align: right;">0.0653822</td><td style="text-align: right;">   0.00124497 </td><td style="text-align: right;">79.325 </td><td style="text-align: right;">     1</td><td style="text-align: right;">         17.0226</td></tr>
-<tr><td>train_tune_adf3c_00013</td><td>TERMINATED</td><td>192.168.188.20:788291</td><td style="text-align: right;">0.0347586</td><td style="text-align: right;">   0.0081263  </td><td style="text-align: right;">76.6   </td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.2734</td></tr>
-<tr><td>train_tune_adf3c_00014</td><td>TERMINATED</td><td>192.168.188.20:788291</td><td style="text-align: right;">0.0694535</td><td style="text-align: right;">   0.00875965 </td><td style="text-align: right;">80.8917</td><td style="text-align: right;">     1</td><td style="text-align: right;">         16.3038</td></tr>
-<tr><td>train_tune_adf3c_00015</td><td>TERMINATED</td><td>192.168.188.20:788308</td><td style="text-align: right;">0.0698921</td><td style="text-align: right;">   0.00173578 </td><td style="text-align: right;">81     </td><td style="text-align: right;">     1</td><td style="text-align: right;">         14.6412</td></tr>
+<tr><td>train_tune_99951_00000</td><td>TERMINATED</td><td>192.168.188.20:849409</td><td style="text-align: right;">0.0536606 </td><td style="text-align: right;">   0.00716843 </td><td style="text-align: right;">77.3333</td><td style="text-align: right;">    10</td><td style="text-align: right;">         231.057</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00001</td><td>TERMINATED</td><td>192.168.188.20:849487</td><td style="text-align: right;">0.0145171 </td><td style="text-align: right;">   0.00995262 </td><td style="text-align: right;">83.0833</td><td style="text-align: right;">    10</td><td style="text-align: right;">         225.55 </td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00002</td><td>TERMINATED</td><td>192.168.188.20:849503</td><td style="text-align: right;">0.00306243</td><td style="text-align: right;">   0.00828528 </td><td style="text-align: right;">79.7   </td><td style="text-align: right;">    10</td><td style="text-align: right;">         223.122</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00003</td><td>TERMINATED</td><td>192.168.188.20:849556</td><td style="text-align: right;">0.023809  </td><td style="text-align: right;">   0.0079757  </td><td style="text-align: right;">84.6417</td><td style="text-align: right;">    10</td><td style="text-align: right;">         225.27 </td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00004</td><td>TERMINATED</td><td>192.168.188.20:849609</td><td style="text-align: right;">0.0509506 </td><td style="text-align: right;">   0.00874976 </td><td style="text-align: right;">84.5833</td><td style="text-align: right;">    10</td><td style="text-align: right;">         227.019</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00005</td><td>TERMINATED</td><td>192.168.188.20:849685</td><td style="text-align: right;">0.027261  </td><td style="text-align: right;">   0.0058419  </td><td style="text-align: right;">85.4333</td><td style="text-align: right;">    10</td><td style="text-align: right;">         223.744</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00006</td><td>TERMINATED</td><td>192.168.188.20:849758</td><td style="text-align: right;">0.0468367 </td><td style="text-align: right;">   0.000406038</td><td style="text-align: right;">87.775 </td><td style="text-align: right;">    10</td><td style="text-align: right;">         226.475</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_99951_00007</td><td>TERMINATED</td><td>192.168.188.20:849941</td><td style="text-align: right;">0.0621856 </td><td style="text-align: right;">   0.00992793 </td><td style="text-align: right;">84.4833</td><td style="text-align: right;">    10</td><td style="text-align: right;">         221.646</td><td style="text-align: right;">     10</td></tr>
 </tbody>
 </table>
   </div>
@@ -489,8 +470,11 @@ results = tuner.fit()
 
 
 
-    2023-01-07 17:24:04,615	WARNING worker.py:1851 -- Warning: The actor ImplicitFunc is very large (45 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
-    2023-01-07 17:24:04,785	WARNING util.py:244 -- The `start_trial` operation took 1.007 s, which may be a performance bottleneck.
+    2023-01-09 15:40:50,719	WARNING worker.py:1851 -- Warning: The actor ImplicitFunc is very large (45 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
+    2023-01-09 15:40:51,242	WARNING util.py:244 -- The `start_trial` operation took 1.045 s, which may be a performance bottleneck.
+    2023-01-09 15:40:54,888	WARNING util.py:244 -- The `start_trial` operation took 0.513 s, which may be a performance bottleneck.
+    2023-01-09 15:40:55,891	WARNING util.py:244 -- The `start_trial` operation took 0.536 s, which may be a performance bottleneck.
+    2023-01-09 15:41:00,472	WARNING util.py:244 -- The `start_trial` operation took 0.604 s, which may be a performance bottleneck.
 
 
 
@@ -498,25 +482,17 @@ results = tuner.fit()
   <h3>Trial Progress</h3>
   <table>
 <thead>
-<tr><th>Trial name            </th><th>date               </th><th>done  </th><th>episodes_total  </th><th>experiment_id                   </th><th>hostname  </th><th style="text-align: right;">  iterations_since_restore</th><th style="text-align: right;">  mean_accuracy</th><th>node_ip       </th><th style="text-align: right;">   pid</th><th style="text-align: right;">  time_since_restore</th><th style="text-align: right;">  time_this_iter_s</th><th style="text-align: right;">  time_total_s</th><th style="text-align: right;">  timestamp</th><th style="text-align: right;">  timesteps_since_restore</th><th>timesteps_total  </th><th style="text-align: right;">  training_iteration</th><th>trial_id   </th><th style="text-align: right;">  warmup_time</th></tr>
+<tr><th>Trial name            </th><th>date               </th><th>done  </th><th>episodes_total  </th><th style="text-align: right;">  epoch</th><th>experiment_id                   </th><th>experiment_tag                 </th><th>hostname  </th><th style="text-align: right;">  iterations_since_restore</th><th style="text-align: right;">  mean_accuracy</th><th>node_ip       </th><th style="text-align: right;">   pid</th><th style="text-align: right;">  time_since_restore</th><th style="text-align: right;">  time_this_iter_s</th><th style="text-align: right;">  time_total_s</th><th style="text-align: right;">  timestamp</th><th style="text-align: right;">  timesteps_since_restore</th><th>timesteps_total  </th><th style="text-align: right;">  training_iteration</th><th style="text-align: right;">   trial_id</th><th style="text-align: right;">  warmup_time</th></tr>
 </thead>
 <tbody>
-<tr><td>train_tune_adf3c_00000</td><td>2023-01-07_17-26-48</td><td>True  </td><td>                </td><td>b13cb9eb0c1f46039afa460d394d168f</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        86.5917</td><td>192.168.188.20</td><td style="text-align: right;">788216</td><td style="text-align: right;">            161.764 </td><td style="text-align: right;">           15.376 </td><td style="text-align: right;">      161.764 </td><td style="text-align: right;"> 1673108808</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>adf3c_00000</td><td style="text-align: right;">   0.00383306</td></tr>
-<tr><td>train_tune_adf3c_00001</td><td>2023-01-07_17-24-26</td><td>True  </td><td>                </td><td>8c67c849115d46eab6456da3da4569fb</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        81.0417</td><td>192.168.188.20</td><td style="text-align: right;">788291</td><td style="text-align: right;">             16.3533</td><td style="text-align: right;">           16.3533</td><td style="text-align: right;">       16.3533</td><td style="text-align: right;"> 1673108666</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00001</td><td style="text-align: right;">   0.00540042</td></tr>
-<tr><td>train_tune_adf3c_00002</td><td>2023-01-07_17-24-27</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        80.5583</td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             16.2717</td><td style="text-align: right;">           16.2717</td><td style="text-align: right;">       16.2717</td><td style="text-align: right;"> 1673108667</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00002</td><td style="text-align: right;">   0.00467658</td></tr>
-<tr><td>train_tune_adf3c_00003</td><td>2023-01-07_17-24-27</td><td>True  </td><td>                </td><td>e490fcff9b3b40e2bd0374683ecd728c</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        77.1167</td><td>192.168.188.20</td><td style="text-align: right;">788340</td><td style="text-align: right;">             16.3274</td><td style="text-align: right;">           16.3274</td><td style="text-align: right;">       16.3274</td><td style="text-align: right;"> 1673108667</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00003</td><td style="text-align: right;">   0.00535107</td></tr>
-<tr><td>train_tune_adf3c_00004</td><td>2023-01-07_17-24-42</td><td>True  </td><td>                </td><td>8c67c849115d46eab6456da3da4569fb</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        79.725 </td><td>192.168.188.20</td><td style="text-align: right;">788291</td><td style="text-align: right;">             16.1607</td><td style="text-align: right;">           16.1607</td><td style="text-align: right;">       16.1607</td><td style="text-align: right;"> 1673108682</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00004</td><td style="text-align: right;">   0.00540042</td></tr>
-<tr><td>train_tune_adf3c_00005</td><td>2023-01-07_17-24-43</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        72.125 </td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             16.1705</td><td style="text-align: right;">           16.1705</td><td style="text-align: right;">       16.1705</td><td style="text-align: right;"> 1673108683</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00005</td><td style="text-align: right;">   0.00467658</td></tr>
-<tr><td>train_tune_adf3c_00006</td><td>2023-01-07_17-27-06</td><td>True  </td><td>                </td><td>e490fcff9b3b40e2bd0374683ecd728c</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        88.025 </td><td>192.168.188.20</td><td style="text-align: right;">788340</td><td style="text-align: right;">            158.676 </td><td style="text-align: right;">           12.4835</td><td style="text-align: right;">      158.676 </td><td style="text-align: right;"> 1673108826</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>adf3c_00006</td><td style="text-align: right;">   0.00535107</td></tr>
-<tr><td>train_tune_adf3c_00007</td><td>2023-01-07_17-25-47</td><td>True  </td><td>                </td><td>8c67c849115d46eab6456da3da4569fb</td><td>fedora    </td><td style="text-align: right;">                         4</td><td style="text-align: right;">        84.3333</td><td>192.168.188.20</td><td style="text-align: right;">788291</td><td style="text-align: right;">             64.9613</td><td style="text-align: right;">           16.3468</td><td style="text-align: right;">       64.9613</td><td style="text-align: right;"> 1673108747</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   4</td><td>adf3c_00007</td><td style="text-align: right;">   0.00540042</td></tr>
-<tr><td>train_tune_adf3c_00008</td><td>2023-01-07_17-24-59</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        80.8083</td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             16.1696</td><td style="text-align: right;">           16.1696</td><td style="text-align: right;">       16.1696</td><td style="text-align: right;"> 1673108699</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00008</td><td style="text-align: right;">   0.00467658</td></tr>
-<tr><td>train_tune_adf3c_00009</td><td>2023-01-07_17-25-15</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        80.6417</td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             16.3448</td><td style="text-align: right;">           16.3448</td><td style="text-align: right;">       16.3448</td><td style="text-align: right;"> 1673108715</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00009</td><td style="text-align: right;">   0.00467658</td></tr>
-<tr><td>train_tune_adf3c_00010</td><td>2023-01-07_17-25-31</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        79.075 </td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             16.1625</td><td style="text-align: right;">           16.1625</td><td style="text-align: right;">       16.1625</td><td style="text-align: right;"> 1673108731</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00010</td><td style="text-align: right;">   0.00467658</td></tr>
-<tr><td>train_tune_adf3c_00011</td><td>2023-01-07_17-26-37</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         4</td><td style="text-align: right;">        85.1583</td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             65.412 </td><td style="text-align: right;">           16.2313</td><td style="text-align: right;">       65.412 </td><td style="text-align: right;"> 1673108797</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   4</td><td>adf3c_00011</td><td style="text-align: right;">   0.00467658</td></tr>
-<tr><td>train_tune_adf3c_00012</td><td>2023-01-07_17-26-05</td><td>True  </td><td>                </td><td>8c67c849115d46eab6456da3da4569fb</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        79.325 </td><td>192.168.188.20</td><td style="text-align: right;">788291</td><td style="text-align: right;">             17.0226</td><td style="text-align: right;">           17.0226</td><td style="text-align: right;">       17.0226</td><td style="text-align: right;"> 1673108765</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00012</td><td style="text-align: right;">   0.00540042</td></tr>
-<tr><td>train_tune_adf3c_00013</td><td>2023-01-07_17-26-21</td><td>True  </td><td>                </td><td>8c67c849115d46eab6456da3da4569fb</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        76.6   </td><td>192.168.188.20</td><td style="text-align: right;">788291</td><td style="text-align: right;">             16.2734</td><td style="text-align: right;">           16.2734</td><td style="text-align: right;">       16.2734</td><td style="text-align: right;"> 1673108781</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00013</td><td style="text-align: right;">   0.00540042</td></tr>
-<tr><td>train_tune_adf3c_00014</td><td>2023-01-07_17-26-37</td><td>True  </td><td>                </td><td>8c67c849115d46eab6456da3da4569fb</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        80.8917</td><td>192.168.188.20</td><td style="text-align: right;">788291</td><td style="text-align: right;">             16.3038</td><td style="text-align: right;">           16.3038</td><td style="text-align: right;">       16.3038</td><td style="text-align: right;"> 1673108797</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00014</td><td style="text-align: right;">   0.00540042</td></tr>
-<tr><td>train_tune_adf3c_00015</td><td>2023-01-07_17-26-52</td><td>True  </td><td>                </td><td>5ad4e8296b7e4ef599efb228e817a2ef</td><td>fedora    </td><td style="text-align: right;">                         1</td><td style="text-align: right;">        81     </td><td>192.168.188.20</td><td style="text-align: right;">788308</td><td style="text-align: right;">             14.6412</td><td style="text-align: right;">           14.6412</td><td style="text-align: right;">       14.6412</td><td style="text-align: right;"> 1673108812</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   1</td><td>adf3c_00015</td><td style="text-align: right;">   0.00467658</td></tr>
+<tr><td>train_tune_99951_00000</td><td>2023-01-09_15-44-44</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>47dd7dee9e554676880730e470d77d0a</td><td>0_lr=0.0537,weight_decay=0.0072</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        77.3333</td><td>192.168.188.20</td><td style="text-align: right;">849409</td><td style="text-align: right;">             231.057</td><td style="text-align: right;">           23.1407</td><td style="text-align: right;">       231.057</td><td style="text-align: right;"> 1673275484</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00000</td><td style="text-align: right;">   0.00394893</td></tr>
+<tr><td>train_tune_99951_00001</td><td>2023-01-09_15-44-43</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>7c009618c5224c01990321c801cb6549</td><td>1_lr=0.0145,weight_decay=0.0100</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        83.0833</td><td>192.168.188.20</td><td style="text-align: right;">849487</td><td style="text-align: right;">             225.55 </td><td style="text-align: right;">           23.6519</td><td style="text-align: right;">       225.55 </td><td style="text-align: right;"> 1673275483</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00001</td><td style="text-align: right;">   0.00502801</td></tr>
+<tr><td>train_tune_99951_00002</td><td>2023-01-09_15-44-41</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>dc218997946444e087406ef9f125b84e</td><td>2_lr=0.0031,weight_decay=0.0083</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        79.7   </td><td>192.168.188.20</td><td style="text-align: right;">849503</td><td style="text-align: right;">             223.122</td><td style="text-align: right;">           22.3263</td><td style="text-align: right;">       223.122</td><td style="text-align: right;"> 1673275481</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00002</td><td style="text-align: right;">   0.00590062</td></tr>
+<tr><td>train_tune_99951_00003</td><td>2023-01-09_15-44-44</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>f8d8c367498c4e6495b27606c7d5946b</td><td>3_lr=0.0238,weight_decay=0.0080</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        84.6417</td><td>192.168.188.20</td><td style="text-align: right;">849556</td><td style="text-align: right;">             225.27 </td><td style="text-align: right;">           23.7308</td><td style="text-align: right;">       225.27 </td><td style="text-align: right;"> 1673275484</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00003</td><td style="text-align: right;">   0.00627685</td></tr>
+<tr><td>train_tune_99951_00004</td><td>2023-01-09_15-44-46</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>3e560a2d8138468bb12d2e53617a1af7</td><td>4_lr=0.0510,weight_decay=0.0087</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        84.5833</td><td>192.168.188.20</td><td style="text-align: right;">849609</td><td style="text-align: right;">             227.019</td><td style="text-align: right;">           22.287 </td><td style="text-align: right;">       227.019</td><td style="text-align: right;"> 1673275486</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00004</td><td style="text-align: right;">   0.00506282</td></tr>
+<tr><td>train_tune_99951_00005</td><td>2023-01-09_15-44-43</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>25e6d4ff9ffc478887ced4eda58976d0</td><td>5_lr=0.0273,weight_decay=0.0058</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        85.4333</td><td>192.168.188.20</td><td style="text-align: right;">849685</td><td style="text-align: right;">             223.744</td><td style="text-align: right;">           22.5407</td><td style="text-align: right;">       223.744</td><td style="text-align: right;"> 1673275483</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00005</td><td style="text-align: right;">   0.00806093</td></tr>
+<tr><td>train_tune_99951_00006</td><td>2023-01-09_15-44-46</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>3c653f61616048e098c9ed98e7044f9b</td><td>6_lr=0.0468,weight_decay=0.0004</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        87.775 </td><td>192.168.188.20</td><td style="text-align: right;">849758</td><td style="text-align: right;">             226.475</td><td style="text-align: right;">           22.0158</td><td style="text-align: right;">       226.475</td><td style="text-align: right;"> 1673275486</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00006</td><td style="text-align: right;">   0.00750184</td></tr>
+<tr><td>train_tune_99951_00007</td><td>2023-01-09_15-44-46</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>0e8053ed08ed4a5aa8542b794335a239</td><td>7_lr=0.0622,weight_decay=0.0099</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        84.4833</td><td>192.168.188.20</td><td style="text-align: right;">849941</td><td style="text-align: right;">             221.646</td><td style="text-align: right;">           22.2945</td><td style="text-align: right;">       221.646</td><td style="text-align: right;"> 1673275486</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td style="text-align: right;">99951_00007</td><td style="text-align: right;">   0.00741696</td></tr>
 </tbody>
 </table>
 </div>
@@ -536,7 +512,7 @@ results = tuner.fit()
 
 
 
-    2023-01-07 17:27:06,370	INFO tune.py:762 -- Total run time: 192.20 seconds (191.39 seconds for the tuning loop).
+    2023-01-09 15:44:46,919	INFO tune.py:762 -- Total run time: 242.24 seconds (241.49 seconds for the tuning loop).
 
 
 
@@ -546,12 +522,207 @@ print(results.get_best_result())
 ax = None
 dfs = {result.log_dir: result.metrics_dataframe for result in results}
 for d in dfs.values():
-    ax = d.mean_accuracy.plot(ax=ax, legend=False)
+    ax = d.plot(ax=ax, y="mean_accuracy", x="epoch", legend=False)
 ax.set_xlabel("Epochs")
 ax.set_ylabel("Mean accuracy")
 ```
 
-    Result(metrics={'mean_accuracy': 88.02499999999999, 'done': True, 'trial_id': 'adf3c_00006', 'experiment_tag': '6_lr=0.0884,weight_decay=0.0001'}, error=None, log_dir=PosixPath('/home/raffi/ray_results/train_tune_2023-01-07_17-23-54/train_tune_adf3c_00006_6_lr=0.0884,weight_decay=0.0001_2023-01-07_17-24-27'))
+    Result(metrics={'mean_accuracy': 87.775, 'epoch': 10, 'done': True, 'trial_id': '99951_00006', 'experiment_tag': '6_lr=0.0468,weight_decay=0.0004'}, error=None, log_dir=PosixPath('/home/raffi/ray_results/train_tune_2023-01-09_15-40-44/train_tune_99951_00006_6_lr=0.0468,weight_decay=0.0004_2023-01-09_15-40-55'))
+
+
+
+
+
+    Text(0, 0.5, 'Mean accuracy')
+
+
+
+
+    
+![png](Ray_Tune_FashionMNIST_files/Ray_Tune_FashionMNIST_29_2.png)
+    
+
+
+## Hyperparameter optimization (ASAH Scheduler)
+
+Now we are going to make the example slightly harder by integrating the ASAH scheduler. This scheduler will try to stop non-promising trials in order to save ressources. This allows us to choose a higher number of samples without increasing the training time. 
+
+We can reuse the train_tune() function and the config from before. Afterwards we need to define the scheduler with the correct arguments. 
+
+Now we only need to add the scheduler to the TuneConfig and afterwards we can start the HPO.
+
+**HINT**: The ASAH scheduler can also take "metric" and "mode" as input. If you already defined this in the TuneConfig do **NOT** redefine it.
+
+
+```python
+scheduler = ASHAScheduler(
+    max_t=config["epochs"], # Max time per trial
+    time_attr="training_iteration", # Which metric is used as measurement for "time"
+    grace_period=2
+    )
+
+tuner = tune.Tuner(
+    trainable,
+    param_space = config,
+    tune_config = tune.TuneConfig(
+        metric = "mean_accuracy",
+        mode = "max",
+        num_samples = 16,
+        scheduler=scheduler,
+    )
+)
+
+results_asah = tuner.fit()
+```
+
+
+<div class="tuneStatus">
+  <div style="display: flex;flex-direction: row">
+    <div style="display: flex;flex-direction: column;">
+      <h3>Tune Status</h3>
+      <table>
+<tbody>
+<tr><td>Current time:</td><td>2023-01-09 15:49:14</td></tr>
+<tr><td>Running for: </td><td>00:04:26.21        </td></tr>
+<tr><td>Memory:      </td><td>13.9/30.6 GiB      </td></tr>
+</tbody>
+</table>
+    </div>
+    <div class="vDivider"></div>
+    <div class="systemInfo">
+      <h3>System Info</h3>
+      Using AsyncHyperBand: num_stopped=16<br>Bracket: Iter 8.000: 86.49166666666666 | Iter 2.000: 82.80833333333334<br>Resources requested: 0/16 CPUs, 0/0 GPUs, 0.0/10.29 GiB heap, 0.0/5.14 GiB objects
+    </div>
+
+  </div>
+  <div class="hDivider"></div>
+  <div class="trialStatus">
+    <h3>Trial Status</h3>
+    <table>
+<thead>
+<tr><th>Trial name            </th><th>status    </th><th>loc                  </th><th style="text-align: right;">        lr</th><th style="text-align: right;">  weight_decay</th><th style="text-align: right;">    acc</th><th style="text-align: right;">  iter</th><th style="text-align: right;">  total time (s)</th><th style="text-align: right;">  epoch</th></tr>
+</thead>
+<tbody>
+<tr><td>train_tune_2a47e_00000</td><td>TERMINATED</td><td>192.168.188.20:850436</td><td style="text-align: right;">0.0803609 </td><td style="text-align: right;">   0.00447683 </td><td style="text-align: right;">85.8333</td><td style="text-align: right;">    10</td><td style="text-align: right;">        195.027 </td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_2a47e_00001</td><td>TERMINATED</td><td>192.168.188.20:850512</td><td style="text-align: right;">0.0442203 </td><td style="text-align: right;">   0.00558784 </td><td style="text-align: right;">82.625 </td><td style="text-align: right;">     2</td><td style="text-align: right;">         45.065 </td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00002</td><td>TERMINATED</td><td>192.168.188.20:850539</td><td style="text-align: right;">0.0412758 </td><td style="text-align: right;">   0.00899764 </td><td style="text-align: right;">79.025 </td><td style="text-align: right;">     2</td><td style="text-align: right;">         45.0777</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00003</td><td>TERMINATED</td><td>192.168.188.20:850571</td><td style="text-align: right;">0.0373015 </td><td style="text-align: right;">   0.00565958 </td><td style="text-align: right;">81.15  </td><td style="text-align: right;">     2</td><td style="text-align: right;">         45.488 </td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00004</td><td>TERMINATED</td><td>192.168.188.20:850645</td><td style="text-align: right;">0.013251  </td><td style="text-align: right;">   0.00842493 </td><td style="text-align: right;">78.25  </td><td style="text-align: right;">     2</td><td style="text-align: right;">         46.0169</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00005</td><td>TERMINATED</td><td>192.168.188.20:850719</td><td style="text-align: right;">0.0132757 </td><td style="text-align: right;">   0.00130614 </td><td style="text-align: right;">79.0583</td><td style="text-align: right;">     2</td><td style="text-align: right;">         45.2109</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00006</td><td>TERMINATED</td><td>192.168.188.20:850900</td><td style="text-align: right;">0.0956718 </td><td style="text-align: right;">   0.00624477 </td><td style="text-align: right;">85.4833</td><td style="text-align: right;">     8</td><td style="text-align: right;">        160.435 </td><td style="text-align: right;">      8</td></tr>
+<tr><td>train_tune_2a47e_00007</td><td>TERMINATED</td><td>192.168.188.20:850916</td><td style="text-align: right;">0.0840716 </td><td style="text-align: right;">   0.00475829 </td><td style="text-align: right;">82.75  </td><td style="text-align: right;">     2</td><td style="text-align: right;">         46.7948</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00008</td><td>TERMINATED</td><td>192.168.188.20:850512</td><td style="text-align: right;">0.0886306 </td><td style="text-align: right;">   0.00589293 </td><td style="text-align: right;">81.2083</td><td style="text-align: right;">     2</td><td style="text-align: right;">         46.5557</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00009</td><td>TERMINATED</td><td>192.168.188.20:850539</td><td style="text-align: right;">0.0789423 </td><td style="text-align: right;">   0.00280516 </td><td style="text-align: right;">81.95  </td><td style="text-align: right;">     2</td><td style="text-align: right;">         47.061 </td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00010</td><td>TERMINATED</td><td>192.168.188.20:850571</td><td style="text-align: right;">0.015722  </td><td style="text-align: right;">   0.00112272 </td><td style="text-align: right;">79.725 </td><td style="text-align: right;">     2</td><td style="text-align: right;">         46.3901</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00011</td><td>TERMINATED</td><td>192.168.188.20:850719</td><td style="text-align: right;">0.0101423 </td><td style="text-align: right;">   0.000511431</td><td style="text-align: right;">76.7   </td><td style="text-align: right;">     2</td><td style="text-align: right;">         46.8588</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00012</td><td>TERMINATED</td><td>192.168.188.20:850645</td><td style="text-align: right;">0.00622107</td><td style="text-align: right;">   0.00844181 </td><td style="text-align: right;">69.35  </td><td style="text-align: right;">     2</td><td style="text-align: right;">         47.2438</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00013</td><td>TERMINATED</td><td>192.168.188.20:850916</td><td style="text-align: right;">0.0210617 </td><td style="text-align: right;">   0.00870492 </td><td style="text-align: right;">80.2917</td><td style="text-align: right;">     2</td><td style="text-align: right;">         44.8909</td><td style="text-align: right;">      2</td></tr>
+<tr><td>train_tune_2a47e_00014</td><td>TERMINATED</td><td>192.168.188.20:850512</td><td style="text-align: right;">0.0567571 </td><td style="text-align: right;">   0.0032487  </td><td style="text-align: right;">87.0167</td><td style="text-align: right;">    10</td><td style="text-align: right;">        157.554 </td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_2a47e_00015</td><td>TERMINATED</td><td>192.168.188.20:850539</td><td style="text-align: right;">0.0942973 </td><td style="text-align: right;">   0.00194781 </td><td style="text-align: right;">85.2917</td><td style="text-align: right;">    10</td><td style="text-align: right;">        156.683 </td><td style="text-align: right;">     10</td></tr>
+</tbody>
+</table>
+  </div>
+</div>
+<style>
+.tuneStatus {
+  color: var(--jp-ui-font-color1);
+}
+.tuneStatus .systemInfo {
+  display: flex;
+  flex-direction: column;
+}
+.tuneStatus td {
+  white-space: nowrap;
+}
+.tuneStatus .trialStatus {
+  display: flex;
+  flex-direction: column;
+}
+.tuneStatus h3 {
+  font-weight: bold;
+}
+.tuneStatus .hDivider {
+  border-bottom-width: var(--jp-border-width);
+  border-bottom-color: var(--jp-border-color0);
+  border-bottom-style: solid;
+}
+.tuneStatus .vDivider {
+  border-left-width: var(--jp-border-width);
+  border-left-color: var(--jp-border-color0);
+  border-left-style: solid;
+  margin: 0.5em 1em 0.5em 1em;
+}
+</style>
+
+
+
+    2023-01-09 15:44:57,968	WARNING worker.py:1851 -- Warning: The actor ImplicitFunc is very large (45 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
+    2023-01-09 15:44:58,134	WARNING util.py:244 -- The `start_trial` operation took 1.016 s, which may be a performance bottleneck.
+    2023-01-09 15:45:02,636	WARNING util.py:244 -- The `start_trial` operation took 0.548 s, which may be a performance bottleneck.
+    2023-01-09 15:45:03,165	WARNING util.py:244 -- The `start_trial` operation took 0.528 s, which may be a performance bottleneck.
+    2023-01-09 15:45:07,245	WARNING util.py:244 -- The `start_trial` operation took 0.519 s, which may be a performance bottleneck.
+    2023-01-09 15:45:07,932	WARNING util.py:244 -- The `start_trial` operation took 0.685 s, which may be a performance bottleneck.
+
+
+
+<div class="trialProgress">
+  <h3>Trial Progress</h3>
+  <table>
+<thead>
+<tr><th>Trial name            </th><th>date               </th><th>done  </th><th>episodes_total  </th><th style="text-align: right;">  epoch</th><th>experiment_id                   </th><th>hostname  </th><th style="text-align: right;">  iterations_since_restore</th><th style="text-align: right;">  mean_accuracy</th><th>node_ip       </th><th style="text-align: right;">   pid</th><th style="text-align: right;">  time_since_restore</th><th style="text-align: right;">  time_this_iter_s</th><th style="text-align: right;">  time_total_s</th><th style="text-align: right;">  timestamp</th><th style="text-align: right;">  timesteps_since_restore</th><th>timesteps_total  </th><th style="text-align: right;">  training_iteration</th><th>trial_id   </th><th style="text-align: right;">  warmup_time</th></tr>
+</thead>
+<tbody>
+<tr><td>train_tune_2a47e_00000</td><td>2023-01-09_15-48-15</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>d2f52c8000014e1c8cec47180a5f1ed9</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        85.8333</td><td>192.168.188.20</td><td style="text-align: right;">850436</td><td style="text-align: right;">            195.027 </td><td style="text-align: right;">           15.5158</td><td style="text-align: right;">      195.027 </td><td style="text-align: right;"> 1673275695</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>2a47e_00000</td><td style="text-align: right;">   0.00615978</td></tr>
+<tr><td>train_tune_2a47e_00001</td><td>2023-01-09_15-45-50</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>4568aae5fd2e42c5ad9bb1b48a7a522e</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        82.625 </td><td>192.168.188.20</td><td style="text-align: right;">850512</td><td style="text-align: right;">             45.065 </td><td style="text-align: right;">           23.1897</td><td style="text-align: right;">       45.065 </td><td style="text-align: right;"> 1673275550</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00001</td><td style="text-align: right;">   0.00562286</td></tr>
+<tr><td>train_tune_2a47e_00002</td><td>2023-01-09_15-45-50</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>aa21989de996413c87c4d933ef8f9ea5</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        79.025 </td><td>192.168.188.20</td><td style="text-align: right;">850539</td><td style="text-align: right;">             45.0777</td><td style="text-align: right;">           22.7481</td><td style="text-align: right;">       45.0777</td><td style="text-align: right;"> 1673275550</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00002</td><td style="text-align: right;">   0.00646687</td></tr>
+<tr><td>train_tune_2a47e_00003</td><td>2023-01-09_15-45-51</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>30c33931842e4ae5a2cf204b6a7ffe12</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        81.15  </td><td>192.168.188.20</td><td style="text-align: right;">850571</td><td style="text-align: right;">             45.488 </td><td style="text-align: right;">           23.0182</td><td style="text-align: right;">       45.488 </td><td style="text-align: right;"> 1673275551</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00003</td><td style="text-align: right;">   0.00507331</td></tr>
+<tr><td>train_tune_2a47e_00004</td><td>2023-01-09_15-45-52</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>9e0dbcdb388b408f9c5d0dec90f8dc6f</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        78.25  </td><td>192.168.188.20</td><td style="text-align: right;">850645</td><td style="text-align: right;">             46.0169</td><td style="text-align: right;">           22.7018</td><td style="text-align: right;">       46.0169</td><td style="text-align: right;"> 1673275552</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00004</td><td style="text-align: right;">   0.00560999</td></tr>
+<tr><td>train_tune_2a47e_00005</td><td>2023-01-09_15-45-51</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>086a7aca978647f0a6003379ddc26448</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        79.0583</td><td>192.168.188.20</td><td style="text-align: right;">850719</td><td style="text-align: right;">             45.2109</td><td style="text-align: right;">           22.788 </td><td style="text-align: right;">       45.2109</td><td style="text-align: right;"> 1673275551</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00005</td><td style="text-align: right;">   0.00536489</td></tr>
+<tr><td>train_tune_2a47e_00006</td><td>2023-01-09_15-47-53</td><td>True  </td><td>                </td><td style="text-align: right;">      8</td><td>593cdc2998944ee89b335daba7aada45</td><td>fedora    </td><td style="text-align: right;">                         8</td><td style="text-align: right;">        85.4833</td><td>192.168.188.20</td><td style="text-align: right;">850900</td><td style="text-align: right;">            160.435 </td><td style="text-align: right;">           16.8421</td><td style="text-align: right;">      160.435 </td><td style="text-align: right;"> 1673275673</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   8</td><td>2a47e_00006</td><td style="text-align: right;">   0.006392  </td></tr>
+<tr><td>train_tune_2a47e_00007</td><td>2023-01-09_15-45-59</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>5e4a930d8bc14d8da2de2ffa8ddac9c6</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        82.75  </td><td>192.168.188.20</td><td style="text-align: right;">850916</td><td style="text-align: right;">             46.7948</td><td style="text-align: right;">           22.9463</td><td style="text-align: right;">       46.7948</td><td style="text-align: right;"> 1673275559</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00007</td><td style="text-align: right;">   0.00485849</td></tr>
+<tr><td>train_tune_2a47e_00008</td><td>2023-01-09_15-46-36</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>4568aae5fd2e42c5ad9bb1b48a7a522e</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        81.2083</td><td>192.168.188.20</td><td style="text-align: right;">850512</td><td style="text-align: right;">             46.5557</td><td style="text-align: right;">           23.0082</td><td style="text-align: right;">       46.5557</td><td style="text-align: right;"> 1673275596</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00008</td><td style="text-align: right;">   0.00562286</td></tr>
+<tr><td>train_tune_2a47e_00009</td><td>2023-01-09_15-46-37</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>aa21989de996413c87c4d933ef8f9ea5</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        81.95  </td><td>192.168.188.20</td><td style="text-align: right;">850539</td><td style="text-align: right;">             47.061 </td><td style="text-align: right;">           23.9621</td><td style="text-align: right;">       47.061 </td><td style="text-align: right;"> 1673275597</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00009</td><td style="text-align: right;">   0.00646687</td></tr>
+<tr><td>train_tune_2a47e_00010</td><td>2023-01-09_15-46-37</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>30c33931842e4ae5a2cf204b6a7ffe12</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        79.725 </td><td>192.168.188.20</td><td style="text-align: right;">850571</td><td style="text-align: right;">             46.3901</td><td style="text-align: right;">           23.5714</td><td style="text-align: right;">       46.3901</td><td style="text-align: right;"> 1673275597</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00010</td><td style="text-align: right;">   0.00507331</td></tr>
+<tr><td>train_tune_2a47e_00011</td><td>2023-01-09_15-46-38</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>086a7aca978647f0a6003379ddc26448</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        76.7   </td><td>192.168.188.20</td><td style="text-align: right;">850719</td><td style="text-align: right;">             46.8588</td><td style="text-align: right;">           23.7951</td><td style="text-align: right;">       46.8588</td><td style="text-align: right;"> 1673275598</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00011</td><td style="text-align: right;">   0.00536489</td></tr>
+<tr><td>train_tune_2a47e_00012</td><td>2023-01-09_15-46-39</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>9e0dbcdb388b408f9c5d0dec90f8dc6f</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        69.35  </td><td>192.168.188.20</td><td style="text-align: right;">850645</td><td style="text-align: right;">             47.2438</td><td style="text-align: right;">           23.4869</td><td style="text-align: right;">       47.2438</td><td style="text-align: right;"> 1673275599</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00012</td><td style="text-align: right;">   0.00560999</td></tr>
+<tr><td>train_tune_2a47e_00013</td><td>2023-01-09_15-46-44</td><td>True  </td><td>                </td><td style="text-align: right;">      2</td><td>5e4a930d8bc14d8da2de2ffa8ddac9c6</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        80.2917</td><td>192.168.188.20</td><td style="text-align: right;">850916</td><td style="text-align: right;">             44.8909</td><td style="text-align: right;">           21.8882</td><td style="text-align: right;">       44.8909</td><td style="text-align: right;"> 1673275604</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                   2</td><td>2a47e_00013</td><td style="text-align: right;">   0.00485849</td></tr>
+<tr><td>train_tune_2a47e_00014</td><td>2023-01-09_15-49-14</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>4568aae5fd2e42c5ad9bb1b48a7a522e</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        87.0167</td><td>192.168.188.20</td><td style="text-align: right;">850512</td><td style="text-align: right;">            157.554 </td><td style="text-align: right;">           13.7587</td><td style="text-align: right;">      157.554 </td><td style="text-align: right;"> 1673275754</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>2a47e_00014</td><td style="text-align: right;">   0.00562286</td></tr>
+<tr><td>train_tune_2a47e_00015</td><td>2023-01-09_15-49-14</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>aa21989de996413c87c4d933ef8f9ea5</td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        85.2917</td><td>192.168.188.20</td><td style="text-align: right;">850539</td><td style="text-align: right;">            156.683 </td><td style="text-align: right;">           13.6614</td><td style="text-align: right;">      156.683 </td><td style="text-align: right;"> 1673275754</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>2a47e_00015</td><td style="text-align: right;">   0.00646687</td></tr>
+</tbody>
+</table>
+</div>
+<style>
+.trialProgress {
+  display: flex;
+  flex-direction: column;
+  color: var(--jp-ui-font-color1);
+}
+.trialProgress h3 {
+  font-weight: bold;
+}
+.trialProgress td {
+  white-space: nowrap;
+}
+</style>
+
+
+
+    2023-01-09 15:49:14,517	INFO tune.py:762 -- Total run time: 267.09 seconds (266.20 seconds for the tuning loop).
+
+
+
+```python
+print(results_asah.get_best_result())
+
+ax = None
+dfs = {result.log_dir: result.metrics_dataframe for result in results_asah}
+for d in dfs.values():
+    ax = d.plot(ax=ax, y="mean_accuracy", x="epoch", legend=False)
+ax.set_xlabel("Epochs")
+ax.set_ylabel("Mean accuracy")
+```
+
+    Result(metrics={'mean_accuracy': 87.01666666666667, 'epoch': 10, 'done': True, 'trial_id': '2a47e_00014', 'experiment_tag': '14_lr=0.0568,weight_decay=0.0032'}, error=None, log_dir=PosixPath('/home/raffi/ray_results/train_tune_2023-01-09_15-44-47/train_tune_2a47e_00014_14_lr=0.0568,weight_decay=0.0032_2023-01-09_15-46-36'))
 
 
 
@@ -621,7 +792,7 @@ def train_tune_pbt(config):
             "model/checkpoint.pt"
         )
         checkpoint = Checkpoint.from_directory("model")
-        session.report(metrics={"mean_accuracy": accuracy}, checkpoint=checkpoint)
+        session.report(metrics={"mean_accuracy": accuracy, "epoch": t + 1}, checkpoint=checkpoint)
 ```
 
 Now the process is similar to the examples before. We create a trainable function and assign the needed ressources. Instead of defining the ASAH scheduler as before we define the PBT scheduler and the tuner is created and started as done before.
@@ -657,7 +828,7 @@ tuner = tune.Tuner(
 )
 
 # Run the tuner
-results = tuner.fit()
+results_pbt = tuner.fit()
 ```
 
 
@@ -667,16 +838,16 @@ results = tuner.fit()
       <h3>Tune Status</h3>
       <table>
 <tbody>
-<tr><td>Current time:</td><td>2023-01-07 18:14:09</td></tr>
-<tr><td>Running for: </td><td>00:04:46.61        </td></tr>
-<tr><td>Memory:      </td><td>15.8/30.6 GiB      </td></tr>
+<tr><td>Current time:</td><td>2023-01-09 15:55:33</td></tr>
+<tr><td>Running for: </td><td>00:06:17.83        </td></tr>
+<tr><td>Memory:      </td><td>13.1/30.6 GiB      </td></tr>
 </tbody>
 </table>
     </div>
     <div class="vDivider"></div>
     <div class="systemInfo">
       <h3>System Info</h3>
-      PopulationBasedTraining: 14 checkpoints, 8 perturbs<br>Resources requested: 0/16 CPUs, 0/0 GPUs, 0.0/10.29 GiB heap, 0.0/5.14 GiB objects
+      PopulationBasedTraining: 16 checkpoints, 3 perturbs<br>Resources requested: 0/16 CPUs, 0/0 GPUs, 0.0/10.29 GiB heap, 0.0/5.14 GiB objects
     </div>
 
   </div>
@@ -685,17 +856,17 @@ results = tuner.fit()
     <h3>Trial Status</h3>
     <table>
 <thead>
-<tr><th>Trial name                </th><th>status    </th><th>loc                  </th><th style="text-align: right;">       lr</th><th style="text-align: right;">  weight_decay</th><th style="text-align: right;">    acc</th><th style="text-align: right;">  iter</th><th style="text-align: right;">  total time (s)</th></tr>
+<tr><th>Trial name                </th><th>status    </th><th>loc                  </th><th style="text-align: right;">       lr</th><th style="text-align: right;">  weight_decay</th><th style="text-align: right;">    acc</th><th style="text-align: right;">  iter</th><th style="text-align: right;">  total time (s)</th><th style="text-align: right;">  epoch</th></tr>
 </thead>
 <tbody>
-<tr><td>train_tune_pbt_07f60_00000</td><td>TERMINATED</td><td>192.168.188.20:804711</td><td style="text-align: right;">0.0828772</td><td style="text-align: right;">   0.00158063 </td><td style="text-align: right;">86.3667</td><td style="text-align: right;">    10</td><td style="text-align: right;">         228.357</td></tr>
-<tr><td>train_tune_pbt_07f60_00001</td><td>TERMINATED</td><td>192.168.188.20:804808</td><td style="text-align: right;">0.0691859</td><td style="text-align: right;">   5.30056e-05</td><td style="text-align: right;">86.775 </td><td style="text-align: right;">    10</td><td style="text-align: right;">         230.84 </td></tr>
-<tr><td>train_tune_pbt_07f60_00002</td><td>TERMINATED</td><td>192.168.188.20:805911</td><td style="text-align: right;">0.0553487</td><td style="text-align: right;">   0.000813207</td><td style="text-align: right;">86.4917</td><td style="text-align: right;">    10</td><td style="text-align: right;">         227.828</td></tr>
-<tr><td>train_tune_pbt_07f60_00003</td><td>TERMINATED</td><td>192.168.188.20:806220</td><td style="text-align: right;">0.0225328</td><td style="text-align: right;">   0.00189675 </td><td style="text-align: right;">88.05  </td><td style="text-align: right;">    10</td><td style="text-align: right;">         225.021</td></tr>
-<tr><td>train_tune_pbt_07f60_00004</td><td>TERMINATED</td><td>192.168.188.20:805004</td><td style="text-align: right;">0.0442789</td><td style="text-align: right;">   0.000650565</td><td style="text-align: right;">87.675 </td><td style="text-align: right;">    10</td><td style="text-align: right;">         213.853</td></tr>
-<tr><td>train_tune_pbt_07f60_00005</td><td>TERMINATED</td><td>192.168.188.20:806201</td><td style="text-align: right;">0.083023 </td><td style="text-align: right;">   6.36067e-05</td><td style="text-align: right;">87.45  </td><td style="text-align: right;">    10</td><td style="text-align: right;">         227.114</td></tr>
-<tr><td>train_tune_pbt_07f60_00006</td><td>TERMINATED</td><td>192.168.188.20:805429</td><td style="text-align: right;">0.0064898</td><td style="text-align: right;">   6.36067e-05</td><td style="text-align: right;">86.4583</td><td style="text-align: right;">    10</td><td style="text-align: right;">         230.921</td></tr>
-<tr><td>train_tune_pbt_07f60_00007</td><td>TERMINATED</td><td>192.168.188.20:806539</td><td style="text-align: right;">0.0354232</td><td style="text-align: right;">   0.00799822 </td><td style="text-align: right;">86.9167</td><td style="text-align: right;">    10</td><td style="text-align: right;">         209.585</td></tr>
+<tr><td>train_tune_pbt_c9d37_00000</td><td>TERMINATED</td><td>192.168.188.20:852954</td><td style="text-align: right;">0.0386163</td><td style="text-align: right;">   0.00219223 </td><td style="text-align: right;">86.75  </td><td style="text-align: right;">    10</td><td style="text-align: right;">         287.351</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00001</td><td>TERMINATED</td><td>192.168.188.20:852768</td><td style="text-align: right;">0.0321803</td><td style="text-align: right;">   0.00460694 </td><td style="text-align: right;">86.2917</td><td style="text-align: right;">    10</td><td style="text-align: right;">         328.034</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00002</td><td>TERMINATED</td><td>192.168.188.20:851570</td><td style="text-align: right;">0.0255263</td><td style="text-align: right;">   0.00101877 </td><td style="text-align: right;">86.6167</td><td style="text-align: right;">    10</td><td style="text-align: right;">         332.429</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00003</td><td>TERMINATED</td><td>192.168.188.20:851643</td><td style="text-align: right;">0.016054 </td><td style="text-align: right;">   0.000548364</td><td style="text-align: right;">85.6833</td><td style="text-align: right;">    10</td><td style="text-align: right;">         335.07 </td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00004</td><td>TERMINATED</td><td>192.168.188.20:852605</td><td style="text-align: right;">0.0321803</td><td style="text-align: right;">   0.00274029 </td><td style="text-align: right;">82.35  </td><td style="text-align: right;">    10</td><td style="text-align: right;">         323.487</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00005</td><td>TERMINATED</td><td>192.168.188.20:851751</td><td style="text-align: right;">0.0243282</td><td style="text-align: right;">   0.00135175 </td><td style="text-align: right;">86.2833</td><td style="text-align: right;">    10</td><td style="text-align: right;">         330.257</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00006</td><td>TERMINATED</td><td>192.168.188.20:851825</td><td style="text-align: right;">0.0327867</td><td style="text-align: right;">   0.000448622</td><td style="text-align: right;">86.25  </td><td style="text-align: right;">    10</td><td style="text-align: right;">         328.115</td><td style="text-align: right;">     10</td></tr>
+<tr><td>train_tune_pbt_c9d37_00007</td><td>TERMINATED</td><td>192.168.188.20:852005</td><td style="text-align: right;">0.0279731</td><td style="text-align: right;">   0.00356693 </td><td style="text-align: right;">85.7583</td><td style="text-align: right;">    10</td><td style="text-align: right;">         336.267</td><td style="text-align: right;">     10</td></tr>
 </tbody>
 </table>
   </div>
@@ -733,11 +904,12 @@ results = tuner.fit()
 
 
 
-    2023-01-07 18:09:28,603	WARNING worker.py:1851 -- Warning: The actor ImplicitFunc is very large (45 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
-    2023-01-07 18:09:28,800	WARNING util.py:244 -- The `start_trial` operation took 1.062 s, which may be a performance bottleneck.
-    2023-01-07 18:09:32,470	WARNING util.py:244 -- The `start_trial` operation took 0.512 s, which may be a performance bottleneck.
-    2023-01-07 18:09:34,001	WARNING util.py:244 -- The `start_trial` operation took 0.560 s, which may be a performance bottleneck.
-    2023-01-07 18:09:38,305	WARNING util.py:244 -- The `start_trial` operation took 0.583 s, which may be a performance bottleneck.
+    2023-01-09 15:49:21,344	WARNING worker.py:1851 -- Warning: The actor ImplicitFunc is very large (45 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
+    2023-01-09 15:49:21,524	WARNING util.py:244 -- The `start_trial` operation took 1.051 s, which may be a performance bottleneck.
+    2023-01-09 15:49:25,252	WARNING util.py:244 -- The `start_trial` operation took 0.519 s, which may be a performance bottleneck.
+    2023-01-09 15:49:26,256	WARNING util.py:244 -- The `start_trial` operation took 0.520 s, which may be a performance bottleneck.
+    2023-01-09 15:49:26,758	WARNING util.py:244 -- The `start_trial` operation took 0.501 s, which may be a performance bottleneck.
+    2023-01-09 15:49:31,001	WARNING util.py:244 -- The `start_trial` operation took 0.612 s, which may be a performance bottleneck.
 
 
 
@@ -745,17 +917,17 @@ results = tuner.fit()
   <h3>Trial Progress</h3>
   <table>
 <thead>
-<tr><th>Trial name                </th><th>date               </th><th>done  </th><th>episodes_total  </th><th>experiment_id                   </th><th>experiment_tag                                                          </th><th>hostname  </th><th style="text-align: right;">  iterations_since_restore</th><th style="text-align: right;">  mean_accuracy</th><th>node_ip       </th><th style="text-align: right;">   pid</th><th>should_checkpoint  </th><th style="text-align: right;">  time_since_restore</th><th style="text-align: right;">  time_this_iter_s</th><th style="text-align: right;">  time_total_s</th><th style="text-align: right;">  timestamp</th><th style="text-align: right;">  timesteps_since_restore</th><th>timesteps_total  </th><th style="text-align: right;">  training_iteration</th><th>trial_id   </th><th style="text-align: right;">  warmup_time</th></tr>
+<tr><th>Trial name                </th><th>date               </th><th>done  </th><th>episodes_total  </th><th style="text-align: right;">  epoch</th><th>experiment_id                   </th><th>experiment_tag                                                          </th><th>hostname  </th><th style="text-align: right;">  iterations_since_restore</th><th style="text-align: right;">  mean_accuracy</th><th>node_ip       </th><th style="text-align: right;">   pid</th><th>should_checkpoint  </th><th style="text-align: right;">  time_since_restore</th><th style="text-align: right;">  time_this_iter_s</th><th style="text-align: right;">  time_total_s</th><th style="text-align: right;">  timestamp</th><th style="text-align: right;">  timesteps_since_restore</th><th>timesteps_total  </th><th style="text-align: right;">  training_iteration</th><th>trial_id   </th><th style="text-align: right;">  warmup_time</th></tr>
 </thead>
 <tbody>
-<tr><td>train_tune_pbt_07f60_00000</td><td>2023-01-07_18-13-19</td><td>True  </td><td>                </td><td>ddf27a2fa1e243848f7bcf8f03ff8d2b</td><td>0_lr=0.0829,weight_decay=0.0016                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        86.3667</td><td>192.168.188.20</td><td style="text-align: right;">804711</td><td>True               </td><td style="text-align: right;">            228.357 </td><td style="text-align: right;">           22.6814</td><td style="text-align: right;">       228.357</td><td style="text-align: right;"> 1673111599</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00000</td><td style="text-align: right;">   0.00388479</td></tr>
-<tr><td>train_tune_pbt_07f60_00001</td><td>2023-01-07_18-13-26</td><td>True  </td><td>                </td><td>622663ab4ea64532af95891e08935e6f</td><td>1_lr=0.0692,weight_decay=0.0001                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        86.775 </td><td>192.168.188.20</td><td style="text-align: right;">804808</td><td>True               </td><td style="text-align: right;">            230.84  </td><td style="text-align: right;">           23.0601</td><td style="text-align: right;">       230.84 </td><td style="text-align: right;"> 1673111606</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00001</td><td style="text-align: right;">   0.00565958</td></tr>
-<tr><td>train_tune_pbt_07f60_00002</td><td>2023-01-07_18-13-33</td><td>True  </td><td>                </td><td>622663ab4ea64532af95891e08935e6f</td><td>2_lr=0.0720,weight_decay=0.0088@perturbed[lr=0.0553,weight_decay=0.0008]</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        86.4917</td><td>192.168.188.20</td><td style="text-align: right;">805911</td><td>True               </td><td style="text-align: right;">             44.0929</td><td style="text-align: right;">           21.2517</td><td style="text-align: right;">       227.828</td><td style="text-align: right;"> 1673111613</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00002</td><td style="text-align: right;">   0.0226119 </td></tr>
-<tr><td>train_tune_pbt_07f60_00003</td><td>2023-01-07_18-13-39</td><td>True  </td><td>                </td><td>ddf27a2fa1e243848f7bcf8f03ff8d2b</td><td>3_lr=0.0620,weight_decay=0.0026@perturbed[lr=0.0225,weight_decay=0.0019]</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        88.05  </td><td>192.168.188.20</td><td style="text-align: right;">806220</td><td>True               </td><td style="text-align: right;">             42.7712</td><td style="text-align: right;">           18.6593</td><td style="text-align: right;">       225.021</td><td style="text-align: right;"> 1673111619</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00003</td><td style="text-align: right;">   0.0291586 </td></tr>
-<tr><td>train_tune_pbt_07f60_00004</td><td>2023-01-07_18-13-57</td><td>True  </td><td>                </td><td>622663ab4ea64532af95891e08935e6f</td><td>4_lr=0.0351,weight_decay=0.0084@perturbed[lr=0.0443,weight_decay=0.0007]</td><td>fedora    </td><td style="text-align: right;">                         6</td><td style="text-align: right;">        87.675 </td><td>192.168.188.20</td><td style="text-align: right;">805004</td><td>True               </td><td style="text-align: right;">            122.264 </td><td style="text-align: right;">           13.1163</td><td style="text-align: right;">       213.853</td><td style="text-align: right;"> 1673111637</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00004</td><td style="text-align: right;">   0.00573421</td></tr>
-<tr><td>train_tune_pbt_07f60_00005</td><td>2023-01-07_18-13-38</td><td>True  </td><td>                </td><td>622663ab4ea64532af95891e08935e6f</td><td>5_lr=0.0956,weight_decay=0.0018@perturbed[lr=0.0830,weight_decay=0.0001]</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        87.45  </td><td>192.168.188.20</td><td style="text-align: right;">806201</td><td>True               </td><td style="text-align: right;">             42.7993</td><td style="text-align: right;">           19.2309</td><td style="text-align: right;">       227.114</td><td style="text-align: right;"> 1673111618</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00005</td><td style="text-align: right;">   0.0242839 </td></tr>
-<tr><td>train_tune_pbt_07f60_00006</td><td>2023-01-07_18-13-33</td><td>True  </td><td>                </td><td>622663ab4ea64532af95891e08935e6f</td><td>6_lr=0.0358,weight_decay=0.0035@perturbed[lr=0.0065,weight_decay=0.0001]</td><td>fedora    </td><td style="text-align: right;">                         8</td><td style="text-align: right;">        86.4583</td><td>192.168.188.20</td><td style="text-align: right;">805429</td><td>True               </td><td style="text-align: right;">            184.699 </td><td style="text-align: right;">           21.6369</td><td style="text-align: right;">       230.921</td><td style="text-align: right;"> 1673111613</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00006</td><td style="text-align: right;">   0.026787  </td></tr>
-<tr><td>train_tune_pbt_07f60_00007</td><td>2023-01-07_18-14-09</td><td>True  </td><td>                </td><td>622663ab4ea64532af95891e08935e6f</td><td>7_lr=0.0210,weight_decay=0.0049@perturbed[lr=0.0354,weight_decay=0.0080]</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        86.9167</td><td>192.168.188.20</td><td style="text-align: right;">806539</td><td>True               </td><td style="text-align: right;">             24.8776</td><td style="text-align: right;">           12.0098</td><td style="text-align: right;">       209.585</td><td style="text-align: right;"> 1673111649</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>07f60_00007</td><td style="text-align: right;">   0.0147822 </td></tr>
+<tr><td>train_tune_pbt_c9d37_00000</td><td>2023-01-09_15-55-33</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>2a50c45ab9e54e938b91149a8870a41f</td><td>0_lr=0.0402,weight_decay=0.0038@perturbed[lr=0.0386,weight_decay=0.0022]</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        86.75  </td><td>192.168.188.20</td><td style="text-align: right;">852954</td><td>True               </td><td style="text-align: right;">             33.4527</td><td style="text-align: right;">           14.6259</td><td style="text-align: right;">       287.351</td><td style="text-align: right;"> 1673276133</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00000</td><td style="text-align: right;">   0.0266705 </td></tr>
+<tr><td>train_tune_pbt_c9d37_00001</td><td>2023-01-09_15-55-05</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>2a50c45ab9e54e938b91149a8870a41f</td><td>1_lr=0.0288,weight_decay=0.0082@perturbed[lr=0.0322,weight_decay=0.0046]</td><td>fedora    </td><td style="text-align: right;">                         2</td><td style="text-align: right;">        86.2917</td><td>192.168.188.20</td><td style="text-align: right;">852768</td><td>True               </td><td style="text-align: right;">             72.4481</td><td style="text-align: right;">           35.5531</td><td style="text-align: right;">       328.034</td><td style="text-align: right;"> 1673276105</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00001</td><td style="text-align: right;">   0.0290251 </td></tr>
+<tr><td>train_tune_pbt_c9d37_00002</td><td>2023-01-09_15-55-01</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>d0eb4e3030ba4625ab4af3b8255022a0</td><td>2_lr=0.0255,weight_decay=0.0010                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        86.6167</td><td>192.168.188.20</td><td style="text-align: right;">851570</td><td>True               </td><td style="text-align: right;">            332.429 </td><td style="text-align: right;">           38.0322</td><td style="text-align: right;">       332.429</td><td style="text-align: right;"> 1673276101</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00002</td><td style="text-align: right;">   0.00557184</td></tr>
+<tr><td>train_tune_pbt_c9d37_00003</td><td>2023-01-09_15-55-04</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>3bb112fc72684f539140bacc2090dd11</td><td>3_lr=0.0161,weight_decay=0.0005                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        85.6833</td><td>192.168.188.20</td><td style="text-align: right;">851643</td><td>True               </td><td style="text-align: right;">            335.07  </td><td style="text-align: right;">           35.8159</td><td style="text-align: right;">       335.07 </td><td style="text-align: right;"> 1673276104</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00003</td><td style="text-align: right;">   0.00639296</td></tr>
+<tr><td>train_tune_pbt_c9d37_00004</td><td>2023-01-09_15-55-09</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>2a50c45ab9e54e938b91149a8870a41f</td><td>4_lr=0.0406,weight_decay=0.0095@perturbed[lr=0.0322,weight_decay=0.0027]</td><td>fedora    </td><td style="text-align: right;">                         4</td><td style="text-align: right;">        82.35  </td><td>192.168.188.20</td><td style="text-align: right;">852605</td><td>True               </td><td style="text-align: right;">            142.695 </td><td style="text-align: right;">           30.9236</td><td style="text-align: right;">       323.487</td><td style="text-align: right;"> 1673276109</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00004</td><td style="text-align: right;">   0.0456536 </td></tr>
+<tr><td>train_tune_pbt_c9d37_00005</td><td>2023-01-09_15-55-00</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>a55c25ac1e11433db72117ffc8dba908</td><td>5_lr=0.0243,weight_decay=0.0014                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        86.2833</td><td>192.168.188.20</td><td style="text-align: right;">851751</td><td>True               </td><td style="text-align: right;">            330.257 </td><td style="text-align: right;">           37.3682</td><td style="text-align: right;">       330.257</td><td style="text-align: right;"> 1673276100</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00005</td><td style="text-align: right;">   0.00917864</td></tr>
+<tr><td>train_tune_pbt_c9d37_00006</td><td>2023-01-09_15-54-58</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>80d84d1305a94ca681673c2aabea0ca0</td><td>6_lr=0.0328,weight_decay=0.0004                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        86.25  </td><td>192.168.188.20</td><td style="text-align: right;">851825</td><td>True               </td><td style="text-align: right;">            328.115 </td><td style="text-align: right;">           36.4608</td><td style="text-align: right;">       328.115</td><td style="text-align: right;"> 1673276098</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00006</td><td style="text-align: right;">   0.00466776</td></tr>
+<tr><td>train_tune_pbt_c9d37_00007</td><td>2023-01-09_15-55-11</td><td>True  </td><td>                </td><td style="text-align: right;">     10</td><td>64e2e219523344c69ba40ccbfb6293fb</td><td>7_lr=0.0280,weight_decay=0.0036                                         </td><td>fedora    </td><td style="text-align: right;">                        10</td><td style="text-align: right;">        85.7583</td><td>192.168.188.20</td><td style="text-align: right;">852005</td><td>True               </td><td style="text-align: right;">            336.267 </td><td style="text-align: right;">           29.3908</td><td style="text-align: right;">       336.267</td><td style="text-align: right;"> 1673276111</td><td style="text-align: right;">                        0</td><td>                 </td><td style="text-align: right;">                  10</td><td>c9d37_00007</td><td style="text-align: right;">   0.00582099</td></tr>
 </tbody>
 </table>
 </div>
@@ -775,111 +947,61 @@ results = tuner.fit()
 
 
 
-    2023-01-07 18:10:22,683	INFO pbt.py:804 -- 
+    2023-01-09 15:50:13,684	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_c9d37_00001
+    2023-01-09 15:50:15,557	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_c9d37_00003
+    2023-01-09 15:50:16,495	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_c9d37_00006
+    2023-01-09 15:50:16,584	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_c9d37_00004
+    2023-01-09 15:50:24,126	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_c9d37_00007
+    2023-01-09 15:52:37,178	INFO pbt.py:804 -- 
     
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00001 (score = 84.858333) into trial 07f60_00006 (score = 82.366667)
+    [PopulationBasedTraining] [Exploit] Cloning trial c9d37_00000 (score = 85.616667) into trial c9d37_00004 (score = 83.025000)
     
-    2023-01-07 18:10:22,685	INFO pbt.py:831 -- 
+    2023-01-09 15:52:37,180	INFO pbt.py:831 -- 
     
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00006:
-    lr : 0.06918585828577933 --- (resample) --> 0.006489804259717111
-    weight_decay : 5.300560865403002e-05 --- (* 1.2) --> 6.360673038483603e-05
+    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trialc9d37_00004:
+    lr : 0.04022534613227904 --- (* 0.8) --> 0.03218027690582323
+    weight_decay : 0.003839114213595841 --- (resample) --> 0.0027402907213869244
     
-    2023-01-07 18:10:22,884	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_07f60_00004
-    2023-01-07 18:10:23,838	WARNING util.py:244 -- The `start_trial` operation took 0.563 s, which may be a performance bottleneck.
-    2023-01-07 18:10:23,840	INFO pbt.py:804 -- 
+    2023-01-09 15:52:39,169	WARNING util.py:244 -- The `start_trial` operation took 0.989 s, which may be a performance bottleneck.
+    2023-01-09 15:53:44,019	INFO pbt.py:804 -- 
     
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00001 (score = 84.858333) into trial 07f60_00002 (score = 81.066667)
+    [PopulationBasedTraining] [Exploit] Cloning trial c9d37_00000 (score = 86.100000) into trial c9d37_00001 (score = 81.916667)
     
-    2023-01-07 18:10:23,842	INFO pbt.py:831 -- 
+    2023-01-09 15:53:44,020	INFO pbt.py:831 -- 
     
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00002:
-    lr : 0.06918585828577933 --- (* 0.8) --> 0.05534868662862347
-    weight_decay : 5.300560865403002e-05 --- (resample) --> 0.0008132066046950878
+    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trialc9d37_00001:
+    lr : 0.04022534613227904 --- (* 0.8) --> 0.03218027690582323
+    weight_decay : 0.003839114213595841 --- (* 1.2) --> 0.004606937056315009
     
-    2023-01-07 18:10:24,913	WARNING util.py:244 -- The `start_trial` operation took 0.597 s, which may be a performance bottleneck.
-    2023-01-07 18:10:29,204	INFO pbt.py:804 -- 
+    2023-01-09 15:53:45,962	WARNING util.py:244 -- The `start_trial` operation took 0.754 s, which may be a performance bottleneck.
+    2023-01-09 15:54:52,608	INFO pbt.py:804 -- 
     
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00001 (score = 84.858333) into trial 07f60_00007 (score = 80.000000)
+    [PopulationBasedTraining] [Exploit] Cloning trial c9d37_00004 (score = 86.191667) into trial c9d37_00000 (score = 85.133333)
     
-    2023-01-07 18:10:29,205	INFO pbt.py:831 -- 
+    2023-01-09 15:54:52,610	INFO pbt.py:831 -- 
     
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00007:
-    lr : 0.06918585828577933 --- (* 1.2) --> 0.0830230299429352
-    weight_decay : 5.300560865403002e-05 --- (* 0.8) --> 4.240448692322402e-05
+    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trialc9d37_00000:
+    lr : 0.03218027690582323 --- (* 1.2) --> 0.038616332286987874
+    weight_decay : 0.0027402907213869244 --- (* 0.8) --> 0.0021922325771095395
     
-    2023-01-07 18:10:30,802	WARNING util.py:244 -- The `start_trial` operation took 0.628 s, which may be a performance bottleneck.
-    2023-01-07 18:11:54,604	INFO pbt.py:804 -- 
-    
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00002 (score = 86.408333) into trial 07f60_00004 (score = 83.908333)
-    
-    2023-01-07 18:11:54,605	INFO pbt.py:831 -- 
-    
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00004:
-    lr : 0.05534868662862347 --- (* 0.8) --> 0.044278949302898774
-    weight_decay : 0.0008132066046950878 --- (* 0.8) --> 0.0006505652837560703
-    
-    2023-01-07 18:11:55,894	WARNING util.py:244 -- The `start_trial` operation took 0.601 s, which may be a performance bottleneck.
-    2023-01-07 18:11:57,842	WARNING util.py:244 -- The `start_trial` operation took 0.659 s, which may be a performance bottleneck.
-    2023-01-07 18:12:48,904	INFO pbt.py:804 -- 
-    
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00001 (score = 88.358333) into trial 07f60_00005 (score = 86.025000)
-    
-    2023-01-07 18:12:48,906	INFO pbt.py:831 -- 
-    
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00005:
-    lr : 0.06918585828577933 --- (* 1.2) --> 0.0830230299429352
-    weight_decay : 5.300560865403002e-05 --- (* 1.2) --> 6.360673038483603e-05
-    
-    2023-01-07 18:12:50,780	WARNING util.py:244 -- The `start_trial` operation took 0.590 s, which may be a performance bottleneck.
-    2023-01-07 18:12:50,783	INFO pbt.py:804 -- 
-    
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00000 (score = 87.708333) into trial 07f60_00003 (score = 85.175000)
-    
-    2023-01-07 18:12:50,785	INFO pbt.py:831 -- 
-    
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00003:
-    lr : 0.08287719726491752 --- (resample) --> 0.02253278745418752
-    weight_decay : 0.001580626729045409 --- (* 1.2) --> 0.0018967520748544907
-    
-    2023-01-07 18:12:51,802	WARNING util.py:244 -- The `start_trial` operation took 0.614 s, which may be a performance bottleneck.
-    2023-01-07 18:12:52,317	INFO pbt.py:804 -- 
-    
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00000 (score = 87.708333) into trial 07f60_00007 (score = 85.875000)
-    
-    2023-01-07 18:12:52,318	INFO pbt.py:831 -- 
-    
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00007:
-    lr : 0.08287719726491752 --- (* 1.2) --> 0.09945263671790101
-    weight_decay : 0.001580626729045409 --- (* 1.2) --> 0.0018967520748544907
-    
-    2023-01-07 18:12:53,871	WARNING util.py:244 -- The `start_trial` operation took 0.679 s, which may be a performance bottleneck.
-    2023-01-07 18:13:41,291	INFO pbt.py:804 -- 
-    
-    [PopulationBasedTraining] [Exploit] Cloning trial 07f60_00004 (score = 87.491667) into trial 07f60_00007 (score = 85.866667)
-    
-    2023-01-07 18:13:41,292	INFO pbt.py:831 -- 
-    
-    [PopulationBasedTraining] [Explore] Perturbed the hyperparameter config of trial07f60_00007:
-    lr : 0.044278949302898774 --- (* 0.8) --> 0.03542315944231902
-    weight_decay : 0.0006505652837560703 --- (resample) --> 0.007998216784259833
-    
-    2023-01-07 18:13:41,923	WARNING util.py:244 -- The `start_trial` operation took 0.506 s, which may be a performance bottleneck.
-    2023-01-07 18:14:09,466	INFO tune.py:762 -- Total run time: 287.32 seconds (286.61 seconds for the tuning loop).
+    2023-01-09 15:54:54,019	WARNING util.py:244 -- The `start_trial` operation took 0.783 s, which may be a performance bottleneck.
+    2023-01-09 15:55:09,443	INFO pbt.py:646 -- [pbt]: no checkpoint for trial. Skip exploit for Trial train_tune_pbt_c9d37_00004
+    2023-01-09 15:55:33,685	INFO tune.py:762 -- Total run time: 378.58 seconds (377.81 seconds for the tuning loop).
 
 
 
 ```python
-print(results.get_best_result())
+print(results_pbt.get_best_result())
+
 ax = None
-dfs = {result.log_dir: result.metrics_dataframe for result in results}
+dfs = {result.log_dir: result.metrics_dataframe for result in results_pbt}
 for d in dfs.values():
-    ax = d.mean_accuracy.plot(ax=ax, legend=False)
+    ax = d.plot(ax=ax, y="mean_accuracy", x="epoch", legend=False)
 ax.set_xlabel("Epochs")
 ax.set_ylabel("Mean accuracy")
 ```
 
-    Result(metrics={'mean_accuracy': 88.05, 'should_checkpoint': True, 'done': True, 'trial_id': '07f60_00003', 'experiment_tag': '3_lr=0.0620,weight_decay=0.0026@perturbed[lr=0.0225,weight_decay=0.0019]'}, error=None, log_dir=PosixPath('/home/raffi/ray_results/train_tune_pbt_2023-01-07_18-09-22/train_tune_pbt_07f60_00003_3_lr=0.0620,weight_decay=0.0026_2023-01-07_18-09-31'))
+    Result(metrics={'mean_accuracy': 86.75, 'epoch': 10, 'should_checkpoint': True, 'done': True, 'trial_id': 'c9d37_00000', 'experiment_tag': '0_lr=0.0402,weight_decay=0.0038@perturbed[lr=0.0386,weight_decay=0.0022]'}, error=None, log_dir=PosixPath('/home/raffi/ray_results/train_tune_pbt_2023-01-09_15-49-15/train_tune_pbt_c9d37_00000_0_lr=0.0402,weight_decay=0.0038_2023-01-09_15-49-20'))
 
 
 
@@ -905,5 +1027,5 @@ ax.set_ylabel("Mean accuracy")
     [NbConvertApp] Making directory Ray_Tune_FashionMNIST_files
     [NbConvertApp] Making directory Ray_Tune_FashionMNIST_files
     [NbConvertApp] Making directory Ray_Tune_FashionMNIST_files
-    [NbConvertApp] Writing 60377 bytes to Ray_Tune_FashionMNIST.md
+    [NbConvertApp] Writing 64503 bytes to Ray_Tune_FashionMNIST.md
 
